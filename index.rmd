@@ -102,7 +102,7 @@ diagwl(matrizdataAl, est="Albuquerque",alt=1500,  mlab="es")
 
 ```
 
-#### Tipo de clima  **BSk** 
+#### Tipo de clima:  **BSk** Estepario
 
 
 ## Climograma de Nuevo Mexico
@@ -119,7 +119,7 @@ diagwl(matrizdataNM, est="Nuevo Mexico",alt=1500,  mlab="es")
 
 ```
 
-#### Tipo de clima  **Aw**
+#### Tipo de clima:  **Aw** Tropical de sabana
 
 ## Climograma de Edinburgh
 ```{r results='hide', warning = FALSE, message=FALSE}
@@ -136,4 +136,4 @@ diagwl(matrizdataEd, est="Edinburgh",alt=1500,  mlab="es")
 
 ```
 
-#### Tipo de clima  **Cfa**
+#### Tipo de clima:  **Cfa** Oceánico, subtropical húmedo
