@@ -1,0 +1,139 @@
+---
+title: "Hidroclimatologia_TP1_Climogramas"
+author: "Josseling Quiroz"
+date: "15/9/2020"
+output: 
+  html_document:
+    theme: readable    
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r results='hide', warning = FALSE, message=FALSE}
+library(climatol)
+library(dplyr)
+library(sf)
+library(spData)
+library(tidyverse)
+library(mapdata)
+library(ggplot2)
+library(maps)
+library(ggrepel)
+library(readxl)
+
+
+```
+# Universidad de Costa Rica
+
+## GF-0607: Hidroclimatología
+#### Profesores: Sebastian Granados/Christian Birkel
+
+## Descripción general
+Trabajo práctico I:
+
+1. Elaborar 3 climogramas completos como en el ejemplo anterior en
+EXCEL, Libreoffice, Openoffice, Numbers o MatLab / R
+
+2. Definir la cuidad que corresponde según un mapa, Google Earth y elconocimiento geográfico de ustedes
+
+3. Definir el tipo de clima según Koeppen-Geiger
+
+4. Es un trabajo individual y tienen una semana de tiempo para entregar un solo archivo guardado bajo su nombre al espacio de entrega en el
+aula virtual
+
+5. Los datos de ejemplo de 9 ciudades encuentran a continuación o en la pagina 181 de Peterson et al.
+
+6. Las nueve ciudades sin orden particular son: Albuquerque, New Mexico; Edinburgh, Scotland; Belem, Brazil; Benghazi, Libya; Faya, Chad; Kano, Nigeria; Miami, Florida; Perth, Australia; Eureka, California.
+
+
+# Mapa global que muestra las tres ciudades escogidas.
+```{r results='hide', warning = FALSE, message=FALSE}
+
+mapa_mundo <- map_data("world")
+
+ciudades <- c("Albuquerque", "Nuevo Mexico", "Edinburgh")
+coordenadas <- data.frame( long = c(-106.62, 	-103.43, -98.16 ), 
+                           lat= c(35.12, 20.75, 26.30),
+                           stringsAsFactors = F) 
+              
+coordenadas$ciudades <- ciudades
+
+mapa_mundo %>%
+  ggplot() +
+  geom_polygon(aes( x= long, y = lat, group = group),
+               fill = "grey80",
+               color = "white") +
+  theme_minimal() +
+  theme(
+    axis.line = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    panel.background = element_rect(colour= "black", size= 1)) +
+  ggtitle( "Ubicacion global de ciudades") +
+  coord_fixed (xlim= c(-160,-45),
+              ylim= c(-10,80),
+              ratio = 1.2)+
+  geom_point(data=coordenadas, aes(long, lat),
+             color= "red", size=1) +
+  geom_text(data = coordenadas, 
+                  aes(long, lat, label =ciudades))
+
+
+
+```
+
+## Climograma de Albuquerque
+```{r results='hide', warning = FALSE, message=FALSE}
+albuquerque <- read_excel("G:/tp1_climograma/albuquerque.xlsx", 
+      col_names = FALSE)
+
+matrizdataAl <- as.matrix(albuquerque[,-1])
+colnames(albuquerque) <- NULL
+
+diagwl(matrizdataAl, est="Albuquerque",alt=1500,  mlab="es")
+
+
+```
+
+#### Tipo de clima  **BSk** 
+
+
+## Climograma de Nuevo Mexico
+```{r results='hide', warning = FALSE, message=FALSE}
+Nuevo_Mexico <- read_excel("G:/tp1_climograma/Nuevo Mexico.xlsx", 
+      col_names = FALSE)
+
+matrizdataNM <- as.matrix(Nuevo_Mexico[,-1])
+     colnames(Nuevo_Mexico) <- NULL
+
+matrizdataNM
+
+diagwl(matrizdataNM, est="Nuevo Mexico",alt=1500,  mlab="es")
+
+```
+
+#### Tipo de clima  **Aw**
+
+## Climograma de Edinburgh
+```{r results='hide', warning = FALSE, message=FALSE}
+
+Edinburgh_ <- read_excel("G:/tp1_climograma/Edinburgh .xlsx", 
+      col_names = FALSE)
+
+matrizdataEd <- as.matrix(Edinburgh_[,-1])
+     colnames(Edinburgh_) <- NULL
+
+matrizdataEd
+
+diagwl(matrizdataEd, est="Edinburgh",alt=1500,  mlab="es")
+
+```
+
+#### Tipo de clima  **Cfa**
